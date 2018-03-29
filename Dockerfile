@@ -8,20 +8,27 @@ RUN addgroup php && \
 
 RUN apk add -U --virtual deps \
 		gcc g++ make libxml2-dev \
-		icu-dev && \
+		gd-dev libpng-dev freetype-dev \
+		libjpeg-turbo-dev libwebp-dev \
+		icu-dev openssl-dev && \
 	cd ~ && \
 	wget https://php.net/distributions/php-$PHP_VER.tar.bz2 && \
 	tar xf php-$PHP_VER.tar.bz2 && \
 	cd ~/php-$PHP_VER/ && \
 	./configure --prefix=/opt/php \
 		--enable-fpm --enable-intl \
+		--enable-mbstring --with-openssl \
+		--enable-exif --with-gd \
+		--with-jpeg-dir=/usr --with-webp-dir=/usr \
+		--with-png-dir=/usr --with-freetype-dir=/usr \
 		--with-fpm-user=php \
 		--with-fpm-group=php \
 		--with-config-file-path=/opt/php/etc/php.ini && \
 	make -j$(nproc) && \
 	make install && \
 	apk del --purge deps && \
-	apk add libstdc++ libxml2 icu-libs && \
+	apk add libstdc++ libxml2 icu-libs libpng freetype \
+		libjpeg-turbo libwebp libssl1.0 && \
 	mv ~/php-$PHP_VER/php.ini-production /opt/php/etc/php.ini && \
 	mv /opt/php/etc/php-fpm.conf.default /opt/php/etc/php-fpm.conf && \
 	mv /opt/php/etc/php-fpm.d/www.conf.default /opt/php/etc/php-fpm.d/www.conf && \
