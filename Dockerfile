@@ -1,6 +1,7 @@
 FROM alpine:3.7
 
 ENV PHP_VER="7.2.3"
+ENV IMG_VER="3.4.3"
 
 RUN addgroup php && \
 	adduser -H -D -G php php && \
@@ -30,9 +31,16 @@ RUN apk add -U --virtual deps \
 	mv ~/php-$PHP_VER/php.ini-production /opt/php/etc/php.ini && \
 	mv /opt/php/etc/php-fpm.conf.default /opt/php/etc/php-fpm.conf && \
 	mv /opt/php/etc/php-fpm.d/www.conf.default /opt/php/etc/php-fpm.d/www.conf && \
-	/opt/php/bin/pecl config-set php_ini /opt/php/etc/php.ini && \
-	/opt/php/bin/pecl install imagick-3.4.3 && \
+	cd ~ && \
+	wget https://pecl.php.net/get/imagick-$IMG_VER.tgz && \
+	tar xf imagick-$IMG_VER.tgz && \
+	cd ~/imagick-$IMG_VER && \
+	/opt/php/bin/phpize && \
+	./configure --prefix=/opt/php \
+		--with-php-config=/opt/php/bin/php-config && \
+	make -j$(nproc) && \
+	make install && \
 	apk del --purge deps && \
 	apk add libstdc++ libxml2 icu-libs libpng freetype \
-		libjpeg-turbo libwebp libssl1.0 && \
+		libjpeg-turbo libwebp libssl1.0 imagemagick && \
 	rm -rf ~/*
