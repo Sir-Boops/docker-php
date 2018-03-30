@@ -46,5 +46,5 @@ RUN apk add -U --virtual deps \
 	apk del --purge deps && \
 	apk add libstdc++ libxml2 icu-libs libpng freetype \
 		libjpeg-turbo libwebp libssl1.0 imagemagick \
-		openldap postgresql-libs && \
+		openldap postgresql-libs diffutils git && \
 	rm -rf ~/*
