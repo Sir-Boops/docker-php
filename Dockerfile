@@ -3,6 +3,7 @@ FROM alpine:3.7
 ENV PHP_VER="7.2.3"
 ENV IMG_VER="3.4.3"
 ENV APCU_VER="5.1.11"
+ENV REDIS_VER="4.0.0"
 
 RUN addgroup php && \
 	adduser -H -D -G php php && \
@@ -48,6 +49,15 @@ RUN apk add -U --virtual deps \
 	wget https://pecl.php.net/get/apcu-$APCU_VER.tgz && \
 	tar xf apcu-$APCU_VER.tgz && \
 	cd ~/apcu-$APCU_VER/ && \
+	/opt/php/bin/phpize && \
+	./configure --prefix=/opt/php \
+		--with-php-config=/opt/php/bin/php-config && \
+	make -j$(nproc) && \
+	make install && \
+	cd ~ && \
+	wget https://pecl.php.net/get/redis-$REDIS_VER.tgz && \
+	tar xf redis-$REDIS_VER.tgz && \
+	cd ~/redis-$REDIS_VER/ && \
 	/opt/php/bin/phpize && \
 	./configure --prefix=/opt/php \
 		--with-php-config=/opt/php/bin/php-config && \
