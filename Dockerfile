@@ -28,6 +28,7 @@ RUN apk add -U --virtual deps \
 		--with-png-dir=/usr --with-freetype-dir=/usr \
 		--with-ldap --with-pdo-pgsql --with-pgsql \
 		--enable-zip --with-libzip --with-curl \
+		--with-zlib-dir \
 		--with-fpm-user=php \
 		--with-fpm-group=php \
 		--with-config-file-scan-dir=/opt/php/etc/ \
