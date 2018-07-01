@@ -32,6 +32,7 @@ RUN apk add -U --virtual deps \
     echo "AddHandler php7-script .php" >> /opt/httpd/conf/httpd.conf && \
     sed -i 's|DocumentRoot "/opt/httpd/htdocs"|DocumentRoot "/opt/www"|' /opt/httpd/conf/httpd.conf && \
     sed -i 's|<Directory "/opt/httpd/htdocs">|<Directory "/opt/www">|' /opt/httpd/conf/httpd.conf && \
+    sed -i 's/AllowOverride None/AllowOverride All/' /opt/httpd/conf/httpd.conf && \
     mkdir -p /opt/www && \
     echo "<?php phpinfo();" > /opt/www/index.php && \
     chown httpd:httpd -R /opt/www/ && \
