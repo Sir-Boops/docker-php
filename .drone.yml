@@ -1,9 +1,0 @@
-pipeline:
-    docker:
-        image: plugins/docker
-        dockerfile: Dockerfile
-        repo: sirboops/php
-        tags: [7.2.7, latest]
-        experimental: true
-        squash: true
-        secrets: [ docker_username, docker_password ]
