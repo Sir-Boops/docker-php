@@ -4,7 +4,7 @@ ENV PHP_VER="7.2.7"
 ENV IMG_VER="3.4.3"
 ENV APCU_VER="5.1.11"
 ENV REDIS_VER="4.0.0"
-ENV HTTPD_VER="2.4.33"
+ENV HTTPD_VER="2.4.34"
 
 RUN addgroup httpd && \
     adduser -H -D -G httpd httpd && \
@@ -23,7 +23,7 @@ RUN apk add -U --virtual deps \
         openldap postgresql-libs diffutils git \
         libzip apr-util && \
     cd ~ && \
-    wget http://www-us.apache.org/dist//httpd/httpd-$HTTPD_VER.tar.gz && \
+    wget https://archive.apache.org/dist/httpd/httpd-$HTTPD_VER.tar.gz && \
     tar xf httpd-$HTTPD_VER.tar.gz && \
     cd ~/httpd-$HTTPD_VER && \
     ./configure --prefix=/opt/httpd && \
