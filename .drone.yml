@@ -3,7 +3,7 @@ pipeline:
         image: plugins/docker
         dockerfile: Dockerfile
         repo: sirboops/php
-        tags: [7.2.8, latest]
+        tags: [7.2.9, latest]
         experimental: true
         squash: true
         secrets: [ docker_username, docker_password ]
