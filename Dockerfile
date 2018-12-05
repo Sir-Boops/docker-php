@@ -17,11 +17,11 @@ RUN apk add -U --virtual deps \
         automake autoconf imagemagick-dev \
         icu-dev libressl-dev openldap-dev \
         postgresql-dev curl-dev libzip-dev \
-        apr-dev apr-util-dev pcre-dev && \
+        apr-dev apr-util-dev pcre-dev gettext-dev && \
     apk add libstdc++ libxml2 icu-libs libpng freetype \
         libjpeg-turbo libwebp libssl1.0 imagemagick \
         openldap postgresql-libs diffutils git \
-        libzip apr-util && \
+        libzip apr-util gettext && \
     cd ~ && \
     wget https://archive.apache.org/dist/httpd/httpd-$HTTPD_VER.tar.gz && \
     tar xf httpd-$HTTPD_VER.tar.gz && \
@@ -44,7 +44,7 @@ RUN apk add -U --virtual deps \
     ./configure --prefix=/opt/php \
         --enable-intl --with-apxs2=/opt/httpd/bin/apxs \
         --enable-mbstring --with-openssl \
-        --enable-exif --with-gd \
+        --enable-exif --with-gd --with-gettext \
         --with-jpeg-dir=/usr --with-webp-dir=/usr \
         --with-png-dir=/usr --with-freetype-dir=/usr \
         --with-ldap --with-pdo-pgsql --with-pgsql \
